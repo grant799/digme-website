@@ -1,0 +1,5 @@
+# Serve article URLs as /blog/slug instead of /articles-and-blogs/slug
+/blog/*   /articles-and-blogs/:splat   200
+
+# Ensure trailing-slash variants resolve cleanly
+/blog     /blog.html                   200

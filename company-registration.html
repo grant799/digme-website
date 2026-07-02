@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cGF0aCBkPSJNNTAgNiBDIDc4IDYsIDk0IDI0LCA5MiA1MiBDIDkwIDc2LCA3MCA5NCwgNDYgOTIgQyAyMiA5MCwgNiA3MiwgOCA1MCBDIDEwIDI2LCAyNiA2LCA1MCA2IFoiIGZpbGw9IiNGNUY0RjAiLz4KICA8cGF0aCBkPSJNNTAgMTggQyA3MiAxOCwgODQgMzIsIDgyIDUyIEMgODAgNzAsIDYyIDg0LCA0NiA4MiBDIDI4IDgwLCAxOCA2NiwgMjAgNTAgQyAyMiAzMiwgMzIgMTgsIDUwIDE4IFoiIGZpbGw9IiMxRDlFNzUiLz4KICA8cGF0aCBkPSJNNTAgMzIgQyA2NCAzMiwgNzIgNDIsIDcwIDU0IEMgNjggNjYsIDU2IDcyLCA0NiA3MCBDIDM0IDY4LCAzMiA1OCwgMzQgNTAgQyAzNiA0MiwgNDIgMzIsIDUwIDMyIFoiIGZpbGw9IiMyQzJDMkEiLz4KICA8ZWxsaXBzZSBjeD0iNTEiIGN5PSI1MiIgcng9IjEwIiByeT0iNyIgZmlsbD0iIzVEQ0FBNSIvPgogIDxlbGxpcHNlIGN4PSI0OCIgY3k9IjQ5IiByeD0iMi40IiByeT0iMS42IiBmaWxsPSIjRTFGNUVFIiBvcGFjaXR5PSIwLjkiLz4KPC9zdmc+">
+  <meta name="theme-color" content="#1D9E75">
+  <title>Company Registration | DigMe Accounting Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:       #1470AF;
+      --navy:       #273B53;
+      --orange:     #E77E07;
+      --grey-light: #EAEAEE;
+      --grey-mid:   #6b7280;
+      --border:     #d1d5db;
+      --error:      #dc2626;
+      --success:    #16a34a;
+      --shadow:     0 4px 24px rgba(39,59,83,0.10);
+    }
+    body { font-family:'Inter',sans-serif; background:var(--grey-light); color:var(--navy); min-height:100vh; line-height:1.6; }
+
+    .header {
+      background:#fff; border-bottom:3px solid var(--orange);
+      padding:14px 28px; display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:100; box-shadow:0 2px 8px rgba(0,0,0,.08);
+    }
+    .logo { font-family:'Inter',sans-serif; font-size:1.45rem; font-weight:400; color:var(--navy); letter-spacing:-.5px; }
+    .logo strong { font-weight:700; }
+    .header-sub   { font-size:.75rem; color:var(--grey-mid); }
+    .header-right { text-align:right; font-size:.78rem; color:var(--grey-mid); }
+    .header-right span { color:var(--blue); font-weight:600; }
+
+    .progress-wrap  { background:#fff; padding:14px 24px; border-bottom:1px solid var(--border); }
+    .progress-steps { display:flex; align-items:center; max-width:820px; margin:0 auto; }
+    .progress-step  { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+    .step-circle {
+      width:30px; height:30px; border-radius:50%;
+      background:var(--grey-light); border:2px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.72rem; font-weight:700; color:var(--grey-mid); transition:all .3s;
+    }
+    .step-circle.active    { background:var(--blue);   border-color:var(--blue);   color:#fff; }
+    .step-circle.completed { background:var(--orange); border-color:var(--orange); color:#fff; }
+    .step-lbl { font-size:.62rem; color:var(--grey-mid); text-align:center; white-space:nowrap; }
+    .step-lbl.active { color:var(--blue); font-weight:600; }
+    .step-connector { height:2px; flex:1; background:var(--border); margin-bottom:18px; transition:background .3s; }
+    .step-connector.done { background:var(--orange); }
+
+    .main { max-width:820px; margin:28px auto; padding:0 16px 80px; }
+    .card { background:#fff; border-radius:12px; box-shadow:var(--shadow); overflow:hidden; }
+    .card-head { background:var(--navy); padding:26px 32px; color:#fff; }
+    .card-head h1 { font-family:'Playfair Display',serif; font-size:1.55rem; font-weight:700; margin-bottom:5px; }
+    .card-head p  { opacity:.75; font-size:.88rem; }
+    .card-body { padding:30px 32px; }
+
+    .sec-title {
+      font-family:'Playfair Display',serif; font-size:1rem; font-weight:600;
+      color:var(--navy); margin:22px 0 14px; padding-bottom:7px;
+      border-bottom:2px solid var(--orange);
+    }
+    .sec-title:first-child { margin-top:0; }
+
+    .row  { display:grid; grid-template-columns:1fr 1fr;     gap:16px; margin-bottom:14px; }
+    .row1 { display:grid; grid-template-columns:1fr;         gap:16px; margin-bottom:14px; }
+    .row3 { display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; margin-bottom:14px; }
+    @media(max-width:580px){ .row,.row3 { grid-template-columns:1fr; } }
+
+    .fg { display:flex; flex-direction:column; gap:5px; }
+    label.lbl { font-size:.84rem; font-weight:500; color:var(--navy); }
+    .req { color:var(--error); margin-left:2px; }
+    .hint { font-size:.73rem; color:var(--grey-mid); margin-top:3px; }
+
+    input[type=text],input[type=email],input[type=tel],input[type=number],input[type=date],select,textarea {
+      width:100%; padding:10px 13px; border:1.5px solid var(--border); border-radius:8px;
+      font-family:'Inter',sans-serif; font-size:.88rem; color:var(--navy); background:#fff;
+      transition:border-color .2s, box-shadow .2s;
+    }
+    input:focus,select:focus,textarea:focus {
+      outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(20,112,175,.12);
+    }
+    input.err,select.err,textarea.err { border-color:var(--error); }
+    textarea { resize:vertical; min-height:76px; }
+    .err-msg { font-size:.76rem; color:var(--error); display:none; }
+    .err-msg.show { display:block; }
+
+    .rgroup { display:flex; gap:10px; flex-wrap:wrap; }
+    .roption {
+      display:flex; align-items:center; gap:8px; cursor:pointer;
+      padding:10px 15px; border:1.5px solid var(--border); border-radius:8px;
+      font-size:.88rem; transition:all .2s; user-select:none;
+    }
+    .roption:hover { border-color:var(--blue); background:rgba(20,112,175,.04); }
+    .roption.sel   { border-color:var(--blue); background:rgba(20,112,175,.08); color:var(--blue); font-weight:500; }
+    .roption input { accent-color:var(--blue); width:15px; height:15px; }
+
+    .upload-area {
+      border:2px dashed var(--border); border-radius:8px; padding:18px;
+      text-align:center; cursor:pointer; transition:all .2s; position:relative; background:#fafafa;
+    }
+    .upload-area:hover { border-color:var(--blue); background:rgba(20,112,175,.03); }
+    .upload-area input[type=file] {
+      position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; border:none; padding:0;
+    }
+    .upload-icon { font-size:1.4rem; margin-bottom:5px; }
+    .upload-txt  { font-size:.78rem; color:var(--grey-mid); }
+    .upload-name { font-size:.77rem; color:var(--success); font-weight:500; margin-top:5px; min-height:18px; }
+
+    .pcard { border:1.5px solid var(--border); border-radius:10px; padding:22px; margin-bottom:18px; background:#fafafa; }
+    .pcard-head { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+    .pcard-avatar {
+      width:34px; height:34px; border-radius:50%; background:var(--blue);
+      color:#fff; display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:.82rem; flex-shrink:0;
+    }
+    .pcard-title { font-weight:600; font-size:.93rem; color:var(--navy); }
+
+    .numrow { display:flex; gap:7px; flex-wrap:wrap; }
+    .num-btn {
+      width:42px; height:42px; border-radius:8px; border:1.5px solid var(--border);
+      background:#fff; font-size:.95rem; font-weight:600; color:var(--navy);
+      cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center;
+    }
+    .num-btn:hover { border-color:var(--blue); color:var(--blue); }
+    .num-btn.sel   { background:var(--blue); border-color:var(--blue); color:#fff; }
+
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:7px;
+      padding:11px 26px; border-radius:8px; font-family:'Inter',sans-serif;
+      font-size:.88rem; font-weight:600; cursor:pointer; border:none; transition:all .2s; text-decoration:none;
+    }
+    .btn-primary   { background:var(--orange); color:#fff; }
+    .btn-primary:hover { background:#c96e06; transform:translateY(-1px); box-shadow:0 4px 12px rgba(231,126,7,.4); }
+    .btn-secondary { background:var(--grey-light); color:var(--navy); }
+    .btn-secondary:hover { background:var(--border); }
+    .btn:disabled  { opacity:.55; cursor:not-allowed; transform:none !important; }
+    .btn-nav { display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:22px; border-top:1px solid var(--border); }
+
+    .info-box { background:rgba(20,112,175,.08); border-left:4px solid var(--blue); border-radius:0 8px 8px 0; padding:13px 16px; font-size:.84rem; margin-bottom:18px; }
+    .warn-box { background:rgba(231,126,7,.08);  border-left:4px solid var(--orange); border-radius:0 8px 8px 0; padding:13px 16px; font-size:.84rem; margin-bottom:18px; }
+
+    .booking-block {
+      text-align:center; padding:30px 24px;
+      background:linear-gradient(135deg,rgba(20,112,175,.06),rgba(39,59,83,.05));
+      border-radius:12px; margin-bottom:22px; border:1px solid rgba(20,112,175,.15);
+    }
+    .booking-block h3 { font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--navy); margin-bottom:7px; }
+    .booking-block p  { color:var(--grey-mid); font-size:.87rem; margin-bottom:18px; max-width:440px; margin-left:auto; margin-right:auto; }
+    .btn-book {
+      background:var(--blue); color:#fff; font-size:.95rem; padding:13px 34px;
+      border-radius:8px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+      font-family:'Inter',sans-serif; font-weight:600; transition:all .2s;
+    }
+    .btn-book:hover { background:var(--navy); transform:translateY(-1px); }
+    .book-confirm { margin-top:18px; display:flex; align-items:center; justify-content:center; gap:9px; font-size:.86rem; }
+    .book-confirm input { width:17px; height:17px; accent-color:var(--blue); cursor:pointer; }
+
+    .upsell-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+    @media(max-width:480px){ .upsell-grid { grid-template-columns:1fr; } }
+    .upsell-card {
+      border:1.5px solid var(--border); border-radius:10px; padding:15px;
+      cursor:pointer; transition:all .2s; display:flex; align-items:flex-start; gap:11px;
+    }
+    .upsell-card:hover { border-color:var(--orange); background:rgba(231,126,7,.04); }
+    .upsell-card.sel  { border-color:var(--orange); background:rgba(231,126,7,.08); }
+    .upsell-card input { flex-shrink:0; width:17px; height:17px; accent-color:var(--orange); margin-top:2px; }
+    .upsell-title { font-weight:600; font-size:.86rem; color:var(--navy); }
+    .upsell-desc  { font-size:.76rem; color:var(--grey-mid); margin-top:2px; }
+
+    .consent-item {
+      display:flex; gap:11px; align-items:flex-start; padding:15px;
+      border:1.5px solid var(--border); border-radius:10px; margin-bottom:11px; cursor:pointer; transition:all .2s;
+    }
+    .consent-item:hover { border-color:var(--blue); }
+    .consent-item.chkd  { border-color:var(--blue); background:rgba(20,112,175,.05); }
+    .consent-item input { flex-shrink:0; width:17px; height:17px; accent-color:var(--blue); margin-top:2px; }
+    .consent-txt strong { display:block; font-size:.86rem; margin-bottom:3px; }
+    .consent-txt p      { font-size:.8rem; color:var(--grey-mid); }
+
+    .sum-table { width:100%; border-collapse:collapse; font-size:.86rem; margin-bottom:8px; }
+    .sum-table tr:nth-child(even) { background:var(--grey-light); }
+    .sum-table td { padding:7px 11px; border-bottom:1px solid var(--border); }
+    .sum-table td:first-child { font-weight:500; color:var(--grey-mid); width:40%; }
+    .sum-sub { font-weight:600; font-size:.9rem; color:var(--navy); margin:14px 0 7px; }
+
+    .loading {
+      display:none; position:fixed; inset:0; background:rgba(255,255,255,.92);
+      z-index:1000; flex-direction:column; align-items:center; justify-content:center; gap:15px;
+    }
+    .loading.show { display:flex; }
+    .spinner { width:46px; height:46px; border:4px solid var(--grey-light); border-top-color:var(--orange); border-radius:50%; animation:spin .8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .success-screen { text-align:center; padding:52px 32px; }
+    .success-icon {
+      width:68px; height:68px; background:linear-gradient(135deg,var(--blue),var(--navy));
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      margin:0 auto 22px; font-size:1.9rem; color:#fff;
+    }
+    .success-screen h2 { font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--navy); margin-bottom:10px; }
+    .success-screen p  { color:var(--grey-mid); max-width:400px; margin:0 auto 26px; font-size:.9rem; }
+
+    .step { display:none; }
+    .step.active { display:block; }
+
+    .dir-tag {
+      display:flex; align-items:center; gap:9px; padding:9px 13px;
+      background:#f0f9ff; border-radius:8px; margin-bottom:7px; font-size:.86rem; border:1px solid rgba(20,112,175,.2);
+    }
+
+    .addr-section { background:rgba(20,112,175,.04); border-radius:8px; padding:14px; margin-bottom:14px; border:1px solid rgba(20,112,175,.12); }
+    .addr-section .addr-lbl { font-size:.78rem; font-weight:600; color:var(--blue); margin-bottom:12px; text-transform:uppercase; letter-spacing:.5px; }
+  </style>
+</head>
+<body>
+
+<!-- SA Provinces datalist — shared across all province inputs -->
+<datalist id="sa-provinces">
+  <option value="Eastern Cape">
+  <option value="Free State">
+  <option value="Gauteng">
+  <option value="KwaZulu-Natal">
+  <option value="Limpopo">
+  <option value="Mpumalanga">
+  <option value="Northern Cape">
+  <option value="North West">
+  <option value="Western Cape">
+</datalist>
+
+<!-- ═══════════════════════════════════════════════════════
+     NETLIFY HIDDEN FORM — do not remove
+     Registers ALL possible field names at deploy time
+════════════════════════════════════════════════════════ -->
+<form name="company-registration" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="bot-field">
+  <input name="client-type">
+  <input name="company-name-1"><input name="company-name-2">
+  <input name="company-name-3"><input name="company-name-4">
+  <input name="business-desc"><input name="year-end">
+  <input name="company-street"><input name="company-suburb">
+  <input name="company-city"><input name="company-province"><input name="company-postal">
+  <input name="services-requested"><input name="submitted-at">
+  <!-- Shareholders 0–9 -->
+  <input name="sh-name-0"><input name="sh-name-1"><input name="sh-name-2"><input name="sh-name-3"><input name="sh-name-4">
+  <input name="sh-name-5"><input name="sh-name-6"><input name="sh-name-7"><input name="sh-name-8"><input name="sh-name-9">
+  <input name="sh-nat-0"><input name="sh-nat-1"><input name="sh-nat-2"><input name="sh-nat-3"><input name="sh-nat-4">
+  <input name="sh-nat-5"><input name="sh-nat-6"><input name="sh-nat-7"><input name="sh-nat-8"><input name="sh-nat-9">
+  <input name="sh-dob-0"><input name="sh-dob-1"><input name="sh-dob-2"><input name="sh-dob-3"><input name="sh-dob-4">
+  <input name="sh-dob-5"><input name="sh-dob-6"><input name="sh-dob-7"><input name="sh-dob-8"><input name="sh-dob-9">
+  <input name="sh-id-0"><input name="sh-id-1"><input name="sh-id-2"><input name="sh-id-3"><input name="sh-id-4">
+  <input name="sh-id-5"><input name="sh-id-6"><input name="sh-id-7"><input name="sh-id-8"><input name="sh-id-9">
+  <input name="sh-pp-0"><input name="sh-pp-1"><input name="sh-pp-2"><input name="sh-pp-3"><input name="sh-pp-4">
+  <input name="sh-pp-5"><input name="sh-pp-6"><input name="sh-pp-7"><input name="sh-pp-8"><input name="sh-pp-9">
+  <input name="sh-pp-issue-0"><input name="sh-pp-issue-1"><input name="sh-pp-issue-2"><input name="sh-pp-issue-3"><input name="sh-pp-issue-4">
+  <input name="sh-pp-issue-5"><input name="sh-pp-issue-6"><input name="sh-pp-issue-7"><input name="sh-pp-issue-8"><input name="sh-pp-issue-9">
+  <input name="sh-pp-expiry-0"><input name="sh-pp-expiry-1"><input name="sh-pp-expiry-2"><input name="sh-pp-expiry-3"><input name="sh-pp-expiry-4">
+  <input name="sh-pp-expiry-5"><input name="sh-pp-expiry-6"><input name="sh-pp-expiry-7"><input name="sh-pp-expiry-8"><input name="sh-pp-expiry-9">
+  <input name="sh-email-0"><input name="sh-email-1"><input name="sh-email-2"><input name="sh-email-3"><input name="sh-email-4">
+  <input name="sh-email-5"><input name="sh-email-6"><input name="sh-email-7"><input name="sh-email-8"><input name="sh-email-9">
+  <input name="sh-phone-0"><input name="sh-phone-1"><input name="sh-phone-2"><input name="sh-phone-3"><input name="sh-phone-4">
+  <input name="sh-phone-5"><input name="sh-phone-6"><input name="sh-phone-7"><input name="sh-phone-8"><input name="sh-phone-9">
+  <input name="sh-street-0"><input name="sh-street-1"><input name="sh-street-2"><input name="sh-street-3"><input name="sh-street-4">
+  <input name="sh-street-5"><input name="sh-street-6"><input name="sh-street-7"><input name="sh-street-8"><input name="sh-street-9">
+  <input name="sh-suburb-0"><input name="sh-suburb-1"><input name="sh-suburb-2"><input name="sh-suburb-3"><input name="sh-suburb-4">
+  <input name="sh-suburb-5"><input name="sh-suburb-6"><input name="sh-suburb-7"><input name="sh-suburb-8"><input name="sh-suburb-9">
+  <input name="sh-city-0"><input name="sh-city-1"><input name="sh-city-2"><input name="sh-city-3"><input name="sh-city-4">
+  <input name="sh-city-5"><input name="sh-city-6"><input name="sh-city-7"><input name="sh-city-8"><input name="sh-city-9">
+  <input name="sh-province-0"><input name="sh-province-1"><input name="sh-province-2"><input name="sh-province-3"><input name="sh-province-4">
+  <input name="sh-province-5"><input name="sh-province-6"><input name="sh-province-7"><input name="sh-province-8"><input name="sh-province-9">
+  <input name="sh-postal-0"><input name="sh-postal-1"><input name="sh-postal-2"><input name="sh-postal-3"><input name="sh-postal-4">
+  <input name="sh-postal-5"><input name="sh-postal-6"><input name="sh-postal-7"><input name="sh-postal-8"><input name="sh-postal-9">
+  <input name="sh-country-0"><input name="sh-country-1"><input name="sh-country-2"><input name="sh-country-3"><input name="sh-country-4">
+  <input name="sh-country-5"><input name="sh-country-6"><input name="sh-country-7"><input name="sh-country-8"><input name="sh-country-9">
+  <input name="sh-own-0"><input name="sh-own-1"><input name="sh-own-2"><input name="sh-own-3"><input name="sh-own-4">
+  <input name="sh-own-5"><input name="sh-own-6"><input name="sh-own-7"><input name="sh-own-8"><input name="sh-own-9">
+  <input name="sh-director-0"><input name="sh-director-1"><input name="sh-director-2"><input name="sh-director-3"><input name="sh-director-4">
+  <input name="sh-director-5"><input name="sh-director-6"><input name="sh-director-7"><input name="sh-director-8"><input name="sh-director-9">
+  <input type="file" name="sh-doc-0"><input type="file" name="sh-doc-1"><input type="file" name="sh-doc-2">
+  <input type="file" name="sh-doc-3"><input type="file" name="sh-doc-4"><input type="file" name="sh-doc-5">
+  <input type="file" name="sh-doc-6"><input type="file" name="sh-doc-7"><input type="file" name="sh-doc-8"><input type="file" name="sh-doc-9">
+  <input type="file" name="sh-poa-0"><input type="file" name="sh-poa-1"><input type="file" name="sh-poa-2">
+  <input type="file" name="sh-poa-3"><input type="file" name="sh-poa-4"><input type="file" name="sh-poa-5">
+  <input type="file" name="sh-poa-6"><input type="file" name="sh-poa-7"><input type="file" name="sh-poa-8"><input type="file" name="sh-poa-9">
+  <!-- Additional Directors 0–9 -->
+  <input name="dir-name-0"><input name="dir-name-1"><input name="dir-name-2"><input name="dir-name-3"><input name="dir-name-4">
+  <input name="dir-name-5"><input name="dir-name-6"><input name="dir-name-7"><input name="dir-name-8"><input name="dir-name-9">
+  <input name="dir-nat-0"><input name="dir-nat-1"><input name="dir-nat-2"><input name="dir-nat-3"><input name="dir-nat-4">
+  <input name="dir-nat-5"><input name="dir-nat-6"><input name="dir-nat-7"><input name="dir-nat-8"><input name="dir-nat-9">
+  <input name="dir-dob-0"><input name="dir-dob-1"><input name="dir-dob-2"><input name="dir-dob-3"><input name="dir-dob-4">
+  <input name="dir-dob-5"><input name="dir-dob-6"><input name="dir-dob-7"><input name="dir-dob-8"><input name="dir-dob-9">
+  <input name="dir-id-0"><input name="dir-id-1"><input name="dir-id-2"><input name="dir-id-3"><input name="dir-id-4">
+  <input name="dir-id-5"><input name="dir-id-6"><input name="dir-id-7"><input name="dir-id-8"><input name="dir-id-9">
+  <input name="dir-pp-0"><input name="dir-pp-1"><input name="dir-pp-2"><input name="dir-pp-3"><input name="dir-pp-4">
+  <input name="dir-pp-5"><input name="dir-pp-6"><input name="dir-pp-7"><input name="dir-pp-8"><input name="dir-pp-9">
+  <input name="dir-pp-issue-0"><input name="dir-pp-issue-1"><input name="dir-pp-issue-2"><input name="dir-pp-issue-3"><input name="dir-pp-issue-4">
+  <input name="dir-pp-issue-5"><input name="dir-pp-issue-6"><input name="dir-pp-issue-7"><input name="dir-pp-issue-8"><input name="dir-pp-issue-9">
+  <input name="dir-pp-expiry-0"><input name="dir-pp-expiry-1"><input name="dir-pp-expiry-2"><input name="dir-pp-expiry-3"><input name="dir-pp-expiry-4">
+  <input name="dir-pp-expiry-5"><input name="dir-pp-expiry-6"><input name="dir-pp-expiry-7"><input name="dir-pp-expiry-8"><input name="dir-pp-expiry-9">
+  <input name="dir-email-0"><input name="dir-email-1"><input name="dir-email-2"><input name="dir-email-3"><input name="dir-email-4">
+  <input name="dir-email-5"><input name="dir-email-6"><input name="dir-email-7"><input name="dir-email-8"><input name="dir-email-9">
+  <input name="dir-phone-0"><input name="dir-phone-1"><input name="dir-phone-2"><input name="dir-phone-3"><input name="dir-phone-4">
+  <input name="dir-phone-5"><input name="dir-phone-6"><input name="dir-phone-7"><input name="dir-phone-8"><input name="dir-phone-9">
+  <input name="dir-street-0"><input name="dir-street-1"><input name="dir-street-2"><input name="dir-street-3"><input name="dir-street-4">
+  <input name="dir-street-5"><input name="dir-street-6"><input name="dir-street-7"><input name="dir-street-8"><input name="dir-street-9">
+  <input name="dir-suburb-0"><input name="dir-suburb-1"><input name="dir-suburb-2"><input name="dir-suburb-3"><input name="dir-suburb-4">
+  <input name="dir-suburb-5"><input name="dir-suburb-6"><input name="dir-suburb-7"><input name="dir-suburb-8"><input name="dir-suburb-9">
+  <input name="dir-city-0"><input name="dir-city-1"><input name="dir-city-2"><input name="dir-city-3"><input name="dir-city-4">
+  <input name="dir-city-5"><input name="dir-city-6"><input name="dir-city-7"><input name="dir-city-8"><input name="dir-city-9">
+  <input name="dir-province-0"><input name="dir-province-1"><input name="dir-province-2"><input name="dir-province-3"><input name="dir-province-4">
+  <input name="dir-province-5"><input name="dir-province-6"><input name="dir-province-7"><input name="dir-province-8"><input name="dir-province-9">
+  <input name="dir-postal-0"><input name="dir-postal-1"><input name="dir-postal-2"><input name="dir-postal-3"><input name="dir-postal-4">
+  <input name="dir-postal-5"><input name="dir-postal-6"><input name="dir-postal-7"><input name="dir-postal-8"><input name="dir-postal-9">
+  <input name="dir-country-0"><input name="dir-country-1"><input name="dir-country-2"><input name="dir-country-3"><input name="dir-country-4">
+  <input name="dir-country-5"><input name="dir-country-6"><input name="dir-country-7"><input name="dir-country-8"><input name="dir-country-9">
+  <input type="file" name="dir-doc-0"><input type="file" name="dir-doc-1"><input type="file" name="dir-doc-2">
+  <input type="file" name="dir-doc-3"><input type="file" name="dir-doc-4"><input type="file" name="dir-doc-5">
+  <input type="file" name="dir-doc-6"><input type="file" name="dir-doc-7"><input type="file" name="dir-doc-8"><input type="file" name="dir-doc-9">
+  <input type="file" name="dir-poa-0"><input type="file" name="dir-poa-1"><input type="file" name="dir-poa-2">
+  <input type="file" name="dir-poa-3"><input type="file" name="dir-poa-4"><input type="file" name="dir-poa-5">
+  <input type="file" name="dir-poa-6"><input type="file" name="dir-poa-7"><input type="file" name="dir-poa-8"><input type="file" name="dir-poa-9">
+</form>
+
+<!-- Loading overlay -->
+<div class="loading" id="loadingOverlay">
+  <div class="spinner"></div>
+  <p style="font-weight:500;color:var(--navy)">Submitting your registration…</p>
+</div>
+
+<!-- Header -->
+<div class="header">
+  <div>
+    <div class="logo">Dig<strong>Me</strong></div>
+    <div class="header-sub">Accounting Solutions</div>
+  </div>
+  <div class="header-right">Company Registration<br><span>Intake Form</span></div>
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-steps" id="progressSteps"></div>
+</div>
+
+<div class="main">
+<div class="card">
+
+  <!-- STEP 1 — Welcome -->
+  <div class="step active" id="step-1">
+    <div class="card-head">
+      <h1>Welcome to Company Registration</h1>
+      <p>Let's get your new South African company registered. First, book your consultation.</p>
+    </div>
+    <div class="card-body">
+      <div class="booking-block">
+        <h3>📅 Book Your Consultation</h3>
+        <p>Schedule a quick introductory appointment with our team before completing the form. This ensures we're available to assist you and answer any questions.</p>
+        <a href="https://calendar.app.google/n1aCg92czwe2rPuPA" target="_blank" class="btn-book">📅 &nbsp;Book an Appointment</a>
+        <label class="book-confirm">
+          <input type="checkbox" id="apptBooked">
+          <span>I have booked my appointment</span>
+        </label>
+      </div>
+      <div class="info-box">
+        <strong>What to have ready:</strong> This form takes about 10–15 minutes. You'll need your ID or passport, proof of residential address, and 4 preferred company names.
+      </div>
+      <div class="btn-nav">
+        <div></div>
+        <button class="btn btn-primary" onclick="goNext()">Begin Registration →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 — Residency -->
+  <div class="step" id="step-2">
+    <div class="card-head">
+      <h1>About You</h1>
+      <p>Help us tailor the form to your situation</p>
+    </div>
+    <div class="card-body">
+      <div class="fg">
+        <label class="lbl">Which best describes you? <span class="req">*</span></label>
+        <div class="rgroup" style="flex-direction:column">
+          <label class="roption" id="res-local" onclick="setResidency('local')">
+            <input type="radio" name="residency" value="local">
+            <div>
+              <div style="font-weight:600">🇿🇦 South African Resident</div>
+              <div style="font-size:.78rem;color:var(--grey-mid)">I hold a South African ID document</div>
+            </div>
+          </label>
+          <label class="roption" id="res-foreign" onclick="setResidency('foreign')">
+            <input type="radio" name="residency" value="foreign">
+            <div>
+              <div style="font-weight:600">🌍 Foreign National</div>
+              <div style="font-size:.78rem;color:var(--grey-mid)">I hold a foreign passport</div>
+            </div>
+          </label>
+        </div>
+        <div class="err-msg" id="err-residency">Please select your residency status</div>
+      </div>
+      <div class="btn-nav">
+        <button class="btn btn-secondary" onclick="goBack()">← Back</button>
+        <button class="btn btn-primary" onclick="goNext()">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 — Company Details -->
+  <div class="step" id="step-3">
+    <div class="card-head">
+      <h1>Company Details</h1>
+      <p>Tell us about the company you'd like to register</p>
+    </div>
+    <div class="card-body">
+      <div class="info-box">
+        <strong>CIPC Naming Rules:</strong> Names may only contain letters, numbers, spaces, and the characters <strong>&amp; . '</strong> — no hyphens, symbols, or special characters. Minimum 3 characters, maximum 60. CIPC will attempt registration in order of preference.
+      </div>
+      <div class="sec-title">Preferred Company Names</div>
+      <div class="row">
+        <div class="fg">
+          <label class="lbl">1st Choice <span class="req">*</span></label>
+          <input type="text" id="cn1" placeholder="e.g. Acme Trading" maxlength="60">
+          <div class="err-msg" id="err-cn1">Required</div>
+        </div>
+        <div class="fg">
+          <label class="lbl">2nd Choice <span class="req">*</span></label>
+          <input type="text" id="cn2" placeholder="e.g. Acme Enterprises" maxlength="60">
+          <div class="err-msg" id="err-cn2">Required</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="fg">
+          <label class="lbl">3rd Choice <span class="req">*</span></label>
+          <input type="text" id="cn3" placeholder="e.g. Acme Solutions" maxlength="60">
+          <div class="err-msg" id="err-cn3">Required</div>
+        </div>
+        <div class="fg">
+          <label class="lbl">4th Choice <span class="req">*</span></label>
+          <input type="text" id="cn4" placeholder="e.g. Acme Consulting" maxlength="60">
+          <div class="err-msg" id="err-cn4">Required</div>
+        </div>
+      </div>
+      <div class="sec-title">Business Information</div>
+      <div class="row1">
+        <div class="fg">
+          <label class="lbl">Brief Business Description <span class="req">*</span></label>
+          <textarea id="bizDesc" placeholder="Describe the main activities and purpose of the business…"></textarea>
+          <div class="err-msg" id="err-bizDesc">Required</div>
+        </div>
+      </div>
+      <div class="row1">
+        <div class="fg">
+          <label class="lbl">Financial Year End <span class="req">*</span></label>
+          <select id="yearEnd">
+            <option value="">— Select month —</option>
+            <option>January</option><option>February</option><option>March</option>
+            <option>April</option><option>May</option><option>June</option>
+            <option>July</option><option>August</option><option>September</option>
+            <option>October</option><option>November</option><option>December</option>
+          </select>
+          <div class="err-msg" id="err-yearEnd">Required</div>
+        </div>
+      </div>
+      <div class="sec-title">Registered Address</div>
+      <div class="info-box" style="margin-bottom:14px">Leave all fields blank to use DigMe's address: Cape Town, Western Cape.</div>
+      <div class="row">
+        <div class="fg">
+          <label class="lbl">Street Address</label>
+          <input type="text" id="company-street" placeholder="e.g. 12 Main Street">
+        </div>
+        <div class="fg">
+          <label class="lbl">Suburb</label>
+          <input type="text" id="company-suburb" placeholder="e.g. Parklands">
+        </div>
+      </div>
+      <div class="row3">
+        <div class="fg">
+          <label class="lbl">City / Town</label>
+          <input type="text" id="company-city" placeholder="e.g. Cape Town">
+        </div>
+        <div class="fg">
+          <label class="lbl">Province</label>
+          <input type="text" id="company-province" list="sa-provinces" placeholder="e.g. Western Cape">
+        </div>
+        <div class="fg">
+          <label class="lbl">Postal Code</label>
+          <input type="text" id="company-postal" placeholder="e.g. 7441" maxlength="10">
+        </div>
+      </div>
+      <div class="btn-nav">
+        <button class="btn btn-secondary" onclick="goBack()">← Back</button>
+        <button class="btn btn-primary" onclick="goNext()">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 — Shareholders -->
+  <div class="step" id="step-4">
+    <div class="card-head">
+      <h1>Shareholders</h1>
+      <p>Tell us about the people who will own shares in the company</p>
+    </div>
+    <div class="card-body">
+      <div class="fg" style="margin-bottom:22px">
+        <label class="lbl">How many shareholders? <span class="req">*</span></label>
+        <div class="hint" style="margin-bottom:10px">Select a number to add shareholder details below</div>
+        <div class="numrow" id="sh-count-sel"></div>
+        <div class="err-msg" id="err-shCount">Please select the number of shareholders</div>
+      </div>
+      <div id="shForms"></div>
+      <div class="btn-nav">
+        <button class="btn btn-secondary" onclick="goBack()">← Back</button>
+        <button class="btn btn-primary" onclick="goNext()">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 — Directors -->
+  <div class="step" id="step-5">
+    <div class="card-head">
+      <h1>Directors</h1>
+      <p>Confirm which shareholders are directors and add any additional directors</p>
+    </div>
+    <div class="card-body">
+      <div class="sec-title">Directors from Shareholders</div>
+      <div id="dirFromSh"></div>
+      <div class="sec-title" style="margin-top:22px">Additional Directors</div>
+      <div class="fg" style="margin-bottom:18px">
+        <label class="lbl">Are there any directors who are not shareholders?</label>
+        <div class="rgroup" style="margin-top:8px">
+          <label class="roption" id="addl-yes" onclick="setAddlDirectors('yes')">
+            <input type="radio" name="addlDirs" value="yes"> <span>Yes</span>
+          </label>
+          <label class="roption" id="addl-no" onclick="setAddlDirectors('no')">
+            <input type="radio" name="addlDirs" value="no"> <span>No</span>
+          </label>
+        </div>
+      </div>
+      <div id="addlDirSection" style="display:none">
+        <div class="fg" style="margin-bottom:18px">
+          <label class="lbl">How many additional directors?</label>
+          <div class="numrow" style="margin-top:10px" id="dir-count-sel"></div>
+        </div>
+        <div id="addlDirForms"></div>
+      </div>
+      <div class="btn-nav">
+        <button class="btn btn-secondary" onclick="goBack()">← Back</button>
+        <button class="btn btn-primary" onclick="goNext()">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 — Services -->
+  <div class="step" id="step-6">
+    <div class="card-head">
+      <h1>Additional Services</h1>
+      <p>Would you like to add any of these services to your registration?</p>
+    </div>
+    <div class="card-body">
+      <div class="info-box">These are optional add-ons. Our team will follow up with pricing and next steps for any services you select.</div>
+      <div class="upsell-grid">
+        <div class="upsell-card" id="svc-vat-card" onclick="toggleSvc('vat',this)">
+          <input type="checkbox" id="svc-vat">
+          <div>
+            <div class="upsell-title">🧾 VAT Registration</div>
+            <div class="upsell-desc">Register your company for VAT with SARS. Required once turnover exceeds R2.3 million.</div>
+          </div>
+        </div>
+        <div class="upsell-card" id="svc-paye-card" onclick="toggleSvc('paye',this)">
+          <input type="checkbox" id="svc-paye">
+          <div>
+            <div class="upsell-title">👥 PAYE &amp; UIF Registration</div>
+            <div class="upsell-desc">Register as an employer with SARS for payroll taxes and UIF contributions.</div>
+          </div>
+        </div>
+        <div class="upsell-card" id="svc-acc-card" onclick="toggleSvc('acc',this)">
+          <input type="checkbox" id="svc-acc">
+          <div>
+            <div class="upsell-title">📊 Accounting Services</div>
+            <div class="upsell-desc">Monthly bookkeeping, management accounts, and financial reporting by our team.</div>
+          </div>
+        </div>
+        <div class="upsell-card" id="svc-tax-card" onclick="toggleSvc('tax',this)">
+          <input type="checkbox" id="svc-tax">
+          <div>
+            <div class="upsell-title">✅ Tax Compliance</div>
+            <div class="upsell-desc">Annual tax returns, provisional tax, and SARS correspondence management.</div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-nav">
+        <button class="btn btn-secondary" onclick="goBack()">← Back</button>
+        <button class="btn btn-primary" onclick="goNext()">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 — Consent -->
+  <div class="step" id="step-7">
+    <div class="card-head">
+      <h1>Consent &amp; Declaration</h1>
+      <p>Please read and confirm the following before submitting</p>
+    </div>
+    <div class="card-body">
+      <div class="consent-item" id="ci-popia" onclick="toggleConsent('popia')">
+        <input type="checkbox" id="chk-popia">
+        <div class="consent-txt">
+          <strong>POPIA Consent</strong>
+          <p>I consent to DigMe Accounting Solutions (Pty) Ltd collecting, processing, and storing my personal information in accordance with the Protection of Personal Information Act (POPIA). This information will only be used for the purpose of company registration and related services.</p>
+        </div>
+      </div>
+      <div class="consent-item" id="ci-accuracy" onclick="toggleConsent('accuracy')">
+        <input type="checkbox" id="chk-accuracy">
+        <div class="consent-txt">
+          <strong>Accuracy Declaration</strong>
+          <p>I confirm that all information provided in this form is accurate, complete, and true to the best of my knowledge. I understand that providing false information may result in legal consequences and the cancellation of registration.</p>
+        </div>
+      </div>
+      <div class="err-msg" id="err-consent" style="margin-top:8px">Please confirm both declarations before continuing</div>
+      <div class="btn-nav">
+        <button class="btn btn-secondary" onclick="goBack()">← Back</button>
+        <button class="btn btn-primary" onclick="goNext()">Review &amp; Submit →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 8 — Summary -->
+  <div class="step" id="step-8">
+    <div class="card-head">
+      <h1>Review Your Submission</h1>
+      <p>Please check your details carefully before submitting</p>
+    </div>
+    <div class="card-body">
+      <div class="warn-box">Please review everything carefully. Once submitted, our team will be in touch to confirm next steps.</div>
+      <div id="summaryContent"></div>
+      <div class="btn-nav">
+        <button class="btn btn-secondary" onclick="goBack()">← Back</button>
+        <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">Submit Registration ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="step" id="step-success">
+    <div class="success-screen">
+      <div class="success-icon">✓</div>
+      <h2>Registration Submitted!</h2>
+      <p>Thank you — your company registration details have been received. Our team will review your submission and be in touch within 1–2 business days.</p>
+      <p style="font-size:.83rem;color:var(--grey-mid);margin-top:10px">Reference: <strong id="refCode"></strong></p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+// ── State ─────────────────────────────────────────────────────
+const LABELS = ['Welcome','Residency','Company','Shareholders','Directors','Services','Consent','Review'];
+const TOTAL  = LABELS.length;
+let cur = 1;
+
+const S = {
+  residency:  null,
+  shCount:    0,
+  shDirector: {},
+  addlDirs:   null,
+  dirCount:   0,
+  services:   { vat:false, paye:false, acc:false, tax:false },
+  consents:   { popia:false, accuracy:false }
+};
+
+// ── Progress ──────────────────────────────────────────────────
+function renderProgress() {
+  const c = document.getElementById('progressSteps');
+  let h = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const active = i === cur, done = i < cur;
+    h += `<div class="progress-step">
+      <div class="step-circle ${active?'active':''} ${done?'completed':''}">${done?'✓':i}</div>
+      <div class="step-lbl ${active?'active':''}">${LABELS[i-1]}</div>
+    </div>`;
+    if (i < TOTAL) h += `<div class="step-connector ${done?'done':''}"></div>`;
+  }
+  c.innerHTML = h;
+}
+
+// ── Navigation ────────────────────────────────────────────────
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(n === 'success' ? 'step-success' : 'step-' + n);
+  if (el) el.classList.add('active');
+  if (n !== 'success') { cur = n; renderProgress(); }
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+function goNext() {
+  if (!validate(cur)) return;
+  if (cur === 4) buildDirectorStep();
+  if (cur === 7) buildSummary();
+  showStep(cur + 1);
+}
+function goBack() { showStep(cur - 1); }
+
+// ── CIPC Name Validation ──────────────────────────────────────
+// CIPC allows: letters, numbers, spaces, & . ' ( )
+// Disallowed: hyphens and all other special characters
+const CIPC_RE = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s&.'()]+$/;
+
+function validateCompanyName(name) {
+  const n = name.trim();
+  if (!n) return 'Company name is required';
+  if (n.length < 3) return 'Name must be at least 3 characters';
+  if (n.length > 60) return 'Name must be 60 characters or fewer';
+  if (!CIPC_RE.test(n)) return 'Invalid characters — only letters, numbers, spaces, & . \' ( ) are allowed. No hyphens or symbols.';
+  if (/\s{2,}/.test(n)) return 'Name cannot contain consecutive spaces';
+  return null; // valid
+}
+
+// ── Validation ────────────────────────────────────────────────
+function validate(step) {
+  if (step === 1) {
+    if (!document.getElementById('apptBooked').checked) {
+      alert('Please book your appointment before continuing.');
+      return false;
+    }
+  }
+  if (step === 2) {
+    if (!S.residency) { showErr('err-residency'); return false; }
+    hideErr('err-residency');
+  }
+  if (step === 3) {
+    let ok = true;
+    // Validate company names with CIPC rules
+    ['cn1','cn2','cn3','cn4'].forEach(id => {
+      const el = document.getElementById(id);
+      const er = document.getElementById('err-' + id);
+      const err = validateCompanyName(el ? el.value : '');
+      if (err) {
+        if (el) el.classList.add('err');
+        if (er) { er.textContent = err; er.classList.add('show'); }
+        ok = false;
+      } else {
+        if (el) el.classList.remove('err');
+        if (er) er.classList.remove('show');
+      }
+    });
+    // Validate other required fields
+    ['bizDesc','yearEnd'].forEach(id => {
+      const el = document.getElementById(id);
+      const er = document.getElementById('err-' + id);
+      if (!el || !el.value.trim()) {
+        if (el) el.classList.add('err');
+        if (er) { er.textContent = 'Required'; er.classList.add('show'); }
+        ok = false;
+      } else {
+        if (el) el.classList.remove('err');
+        if (er) er.classList.remove('show');
+      }
+    });
+    return ok;
+  }
+  if (step === 4) {
+    if (S.shCount === 0) { showErr('err-shCount'); return false; }
+    hideErr('err-shCount');
+    let ok = true;
+    for (let i = 0; i < S.shCount; i++) {
+      // Basic text fields
+      ['sh-name','sh-nat','sh-dob','sh-email','sh-phone','sh-own'].forEach(b => {
+        const el = document.getElementById(b + '-' + i);
+        if (el && !el.value.trim()) { el.classList.add('err'); ok = false; }
+        else if (el) el.classList.remove('err');
+      });
+      // ID or Passport number
+      const idKey = (S.residency === 'local') ? 'sh-id-' + i : 'sh-pp-' + i;
+      const idEl  = document.getElementById(idKey);
+      if (idEl && !idEl.value.trim()) { idEl.classList.add('err'); ok = false; }
+      else if (idEl) idEl.classList.remove('err');
+      // Passport issue & expiry (foreign only)
+      if (S.residency === 'foreign') {
+        ['sh-pp-issue-','sh-pp-expiry-'].forEach(b => {
+          const el = document.getElementById(b + i);
+          if (el && !el.value.trim()) { el.classList.add('err'); ok = false; }
+          else if (el) el.classList.remove('err');
+        });
+      }
+      // Address fields
+      ['sh-street-','sh-suburb-','sh-city-','sh-postal-','sh-country-'].forEach(b => {
+        const el = document.getElementById(b + i);
+        if (el && !el.value.trim()) { el.classList.add('err'); ok = false; }
+        else if (el) el.classList.remove('err');
+      });
+    }
+    if (!ok) { alert('Please complete all required shareholder fields.'); return false; }
+  }
+  if (step === 7) {
+    if (!S.consents.popia || !S.consents.accuracy) { showErr('err-consent'); return false; }
+    hideErr('err-consent');
+  }
+  return true;
+}
+
+function showErr(id) { const e = document.getElementById(id); if(e) e.classList.add('show'); }
+function hideErr(id) { const e = document.getElementById(id); if(e) e.classList.remove('show'); }
+function val(id)     { const e = document.getElementById(id); return e ? e.value.trim() : ''; }
+
+// ── Residency ─────────────────────────────────────────────────
+function setResidency(type) {
+  S.residency = type;
+  document.getElementById('res-local').classList.toggle('sel',   type === 'local');
+  document.getElementById('res-foreign').classList.toggle('sel', type === 'foreign');
+  hideErr('err-residency');
+  if (S.shCount > 0) renderShForms();
+}
+
+// ── Number Picker ─────────────────────────────────────────────
+function renderNumPicker(containerId, selected, max, cb) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  let h = '';
+  for (let i = 1; i <= max; i++) {
+    h += `<button type="button" class="num-btn ${selected===i?'sel':''}" onclick="${cb}(${i})">${i}</button>`;
+  }
+  c.innerHTML = h;
+}
+
+// ── Address HTML helper ───────────────────────────────────────
+function addrHTML(prefix, i) {
+  const sfx = i !== null ? '-' + i : '';
+  const local = S.residency === 'local';
+  const defCountry = local ? 'South Africa' : '';
+  return `
+    <div class="addr-section">
+      <div class="addr-lbl">📍 Residential Address</div>
+      <div class="row">
+        <div class="fg"><label class="lbl">Street Address <span class="req">*</span></label>
+          <input type="text" id="${prefix}-street${sfx}" placeholder="e.g. 12 Oak Avenue"></div>
+        <div class="fg"><label class="lbl">Suburb <span class="req">*</span></label>
+          <input type="text" id="${prefix}-suburb${sfx}" placeholder="e.g. Parklands"></div>
+      </div>
+      <div class="row3">
+        <div class="fg"><label class="lbl">City / Town <span class="req">*</span></label>
+          <input type="text" id="${prefix}-city${sfx}" placeholder="e.g. Cape Town"></div>
+        <div class="fg"><label class="lbl">Province / State</label>
+          <input type="text" id="${prefix}-province${sfx}" list="sa-provinces" placeholder="e.g. Western Cape"></div>
+        <div class="fg"><label class="lbl">Postal Code <span class="req">*</span></label>
+          <input type="text" id="${prefix}-postal${sfx}" placeholder="e.g. 7441" maxlength="10"></div>
+      </div>
+      <div class="row1">
+        <div class="fg"><label class="lbl">Country <span class="req">*</span></label>
+          <input type="text" id="${prefix}-country${sfx}" value="${defCountry}" placeholder="e.g. South Africa"></div>
+      </div>
+    </div>`;
+}
+
+// ── Passport dates helper (foreign nationals only) ────────────
+function passportDatesHTML(prefix, i) {
+  return `
+    <div class="row">
+      <div class="fg"><label class="lbl">Passport Date of Issue <span class="req">*</span></label>
+        <input type="date" id="${prefix}-pp-issue-${i}"></div>
+      <div class="fg"><label class="lbl">Passport Expiry Date <span class="req">*</span></label>
+        <input type="date" id="${prefix}-pp-expiry-${i}"></div>
+    </div>`;
+}
+
+// ── Shareholders ──────────────────────────────────────────────
+function setShCount(n) {
+  S.shCount = n;
+  hideErr('err-shCount');
+  renderNumPicker('sh-count-sel', n, 10, 'setShCount');
+  renderShForms();
+}
+
+function renderShForms() {
+  const local = S.residency === 'local';
+  let h = '';
+  for (let i = 0; i < S.shCount; i++) {
+    const dirY = S.shDirector[i] === true;
+    const dirN = S.shDirector[i] === false;
+    h += `<div class="pcard">
+      <div class="pcard-head">
+        <div class="pcard-avatar">${i+1}</div>
+        <div class="pcard-title">Shareholder ${i+1}</div>
+      </div>
+      <div class="row">
+        <div class="fg"><label class="lbl">Full Name <span class="req">*</span></label>
+          <input type="text" id="sh-name-${i}" placeholder="As per ID / Passport"></div>
+        <div class="fg"><label class="lbl">Nationality / Citizenship <span class="req">*</span></label>
+          <input type="text" id="sh-nat-${i}" value="${local?'South African':''}"></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label class="lbl">Date of Birth <span class="req">*</span></label>
+          <input type="date" id="sh-dob-${i}"></div>
+        <div class="fg"><label class="lbl">${local?'SA ID Number':'Passport Number'} <span class="req">*</span></label>
+          <input type="text" id="${local?'sh-id':'sh-pp'}-${i}" placeholder="${local?'13-digit SA ID':'Passport number'}"></div>
+      </div>
+      ${!local ? passportDatesHTML('sh', i) : ''}
+      <div class="row">
+        <div class="fg"><label class="lbl">Upload ${local?'Certified SA ID Copy':'Passport Copy'} <span class="req">*</span></label>
+          <div class="upload-area">
+            <input type="file" id="sh-doc-${i}" accept=".pdf,.jpg,.jpeg,.png" onchange="markFile('sh-doc-${i}')">
+            <div class="upload-icon">📎</div>
+            <div class="upload-txt">Click to upload · PDF, JPG, PNG · max 5 MB</div>
+            <div class="upload-name" id="sh-doc-${i}-nm"></div>
+          </div></div>
+        <div class="fg"><label class="lbl">Upload Proof of Residential Address</label>
+          <div class="upload-area">
+            <input type="file" id="sh-poa-${i}" accept=".pdf,.jpg,.jpeg,.png" onchange="markFile('sh-poa-${i}')">
+            <div class="upload-icon">🏠</div>
+            <div class="upload-txt">Click to upload · PDF, JPG, PNG · max 5 MB</div>
+            <div class="upload-name" id="sh-poa-${i}-nm"></div>
+          </div></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label class="lbl">Email Address <span class="req">*</span></label>
+          <input type="email" id="sh-email-${i}" placeholder="email@example.com"></div>
+        <div class="fg"><label class="lbl">Mobile Number <span class="req">*</span></label>
+          <input type="tel" id="sh-phone-${i}" placeholder="+27 xx xxx xxxx"></div>
+      </div>
+      ${addrHTML('sh', i)}
+      <div class="row1">
+        <div class="fg"><label class="lbl">Percentage Ownership (%) <span class="req">*</span></label>
+          <input type="number" id="sh-own-${i}" placeholder="e.g. 50" min="1" max="100"></div>
+      </div>
+      <div class="row1">
+        <div class="fg"><label class="lbl">Is this shareholder also a director?</label>
+          <div class="rgroup" style="margin-top:6px">
+            <label class="roption ${dirY?'sel':''}" id="shd-y-${i}" onclick="setShDir(${i},true)">
+              <input type="radio" name="shd-${i}" value="yes"> <span>Yes</span></label>
+            <label class="roption ${dirN?'sel':''}" id="shd-n-${i}" onclick="setShDir(${i},false)">
+              <input type="radio" name="shd-${i}" value="no"> <span>No</span></label>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+  document.getElementById('shForms').innerHTML = h;
+}
+
+function setShDir(i, v) {
+  S.shDirector[i] = v;
+  document.getElementById('shd-y-' + i).classList.toggle('sel', v === true);
+  document.getElementById('shd-n-' + i).classList.toggle('sel', v === false);
+}
+
+// ── File Upload ───────────────────────────────────────────────
+function markFile(id) {
+  const input = document.getElementById(id);
+  const nm    = document.getElementById(id + '-nm');
+  if (!input || !input.files[0]) return;
+  const f = input.files[0];
+  if (f.size > 5 * 1024 * 1024) {
+    alert('"' + f.name + '" exceeds 5 MB. Please compress or reduce the file size.');
+    input.value = '';
+    if (nm) nm.textContent = '';
+    return;
+  }
+  if (nm) nm.textContent = '✓ ' + f.name;
+}
+
+// ── Directors ─────────────────────────────────────────────────
+function buildDirectorStep() {
+  let h = '', anyDir = false;
+  for (let i = 0; i < S.shCount; i++) {
+    const name = val('sh-name-' + i) || ('Shareholder ' + (i+1));
+    if (S.shDirector[i] === true) {
+      anyDir = true;
+      h += `<div class="dir-tag"><span style="color:var(--blue)">✓</span>
+        <span><strong>${name}</strong> — appointed as director</span></div>`;
+    }
+  }
+  if (!anyDir) h = '<div class="warn-box">No shareholders have been marked as directors. Please go back and confirm director appointments.</div>';
+  document.getElementById('dirFromSh').innerHTML = h;
+  renderNumPicker('dir-count-sel', S.dirCount, 10, 'setDirCount');
+}
+
+function setAddlDirectors(v) {
+  S.addlDirs = v;
+  document.getElementById('addl-yes').classList.toggle('sel', v === 'yes');
+  document.getElementById('addl-no').classList.toggle('sel',  v === 'no');
+  document.getElementById('addlDirSection').style.display = v === 'yes' ? 'block' : 'none';
+}
+
+function setDirCount(n) {
+  S.dirCount = n;
+  renderNumPicker('dir-count-sel', n, 10, 'setDirCount');
+  renderAddlDirForms(n);
+}
+
+function renderAddlDirForms(n) {
+  const local = S.residency === 'local';
+  let h = '';
+  for (let i = 0; i < n; i++) {
+    h += `<div class="pcard">
+      <div class="pcard-head">
+        <div class="pcard-avatar" style="background:var(--navy)">${i+1}</div>
+        <div class="pcard-title">Additional Director ${i+1}</div>
+      </div>
+      <div class="row">
+        <div class="fg"><label class="lbl">Full Name <span class="req">*</span></label>
+          <input type="text" id="dir-name-${i}" placeholder="As per ID / Passport"></div>
+        <div class="fg"><label class="lbl">Nationality / Citizenship <span class="req">*</span></label>
+          <input type="text" id="dir-nat-${i}" value="${local?'South African':''}"></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label class="lbl">Date of Birth <span class="req">*</span></label>
+          <input type="date" id="dir-dob-${i}"></div>
+        <div class="fg"><label class="lbl">${local?'SA ID Number':'Passport Number'} <span class="req">*</span></label>
+          <input type="text" id="${local?'dir-id':'dir-pp'}-${i}"></div>
+      </div>
+      ${!local ? passportDatesHTML('dir', i) : ''}
+      <div class="row">
+        <div class="fg"><label class="lbl">Upload ${local?'Certified SA ID Copy':'Passport Copy'}</label>
+          <div class="upload-area">
+            <input type="file" id="dir-doc-${i}" accept=".pdf,.jpg,.jpeg,.png" onchange="markFile('dir-doc-${i}')">
+            <div class="upload-icon">📎</div>
+            <div class="upload-txt">Click to upload · PDF, JPG, PNG · max 5 MB</div>
+            <div class="upload-name" id="dir-doc-${i}-nm"></div>
+          </div></div>
+        <div class="fg"><label class="lbl">Upload Proof of Residential Address</label>
+          <div class="upload-area">
+            <input type="file" id="dir-poa-${i}" accept=".pdf,.jpg,.jpeg,.png" onchange="markFile('dir-poa-${i}')">
+            <div class="upload-icon">🏠</div>
+            <div class="upload-txt">Click to upload · PDF, JPG, PNG · max 5 MB</div>
+            <div class="upload-name" id="dir-poa-${i}-nm"></div>
+          </div></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label class="lbl">Email Address <span class="req">*</span></label>
+          <input type="email" id="dir-email-${i}" placeholder="email@example.com"></div>
+        <div class="fg"><label class="lbl">Mobile Number <span class="req">*</span></label>
+          <input type="tel" id="dir-phone-${i}" placeholder="+27 xx xxx xxxx"></div>
+      </div>
+      ${addrHTML('dir', i)}
+    </div>`;
+  }
+  document.getElementById('addlDirForms').innerHTML = h;
+}
+
+// ── Services ──────────────────────────────────────────────────
+function toggleSvc(key, card) {
+  S.services[key] = !S.services[key];
+  card.classList.toggle('sel', S.services[key]);
+  document.getElementById('svc-' + key).checked = S.services[key];
+}
+
+// ── Consent ───────────────────────────────────────────────────
+function toggleConsent(key) {
+  S.consents[key] = !S.consents[key];
+  document.getElementById('ci-' + key).classList.toggle('chkd', S.consents[key]);
+  document.getElementById('chk-' + key).checked = S.consents[key];
+  if (S.consents.popia && S.consents.accuracy) hideErr('err-consent');
+}
+
+// ── Summary ───────────────────────────────────────────────────
+function addrSummary(prefix, i) {
+  const sfx = i !== null ? '-' + i : '';
+  const street   = val(prefix + '-street'   + sfx);
+  const suburb   = val(prefix + '-suburb'   + sfx);
+  const city     = val(prefix + '-city'     + sfx);
+  const province = val(prefix + '-province' + sfx);
+  const postal   = val(prefix + '-postal'   + sfx);
+  const country  = val(prefix + '-country'  + sfx);
+  return [street, suburb, city, province, postal, country].filter(Boolean).join(', ') || '—';
+}
+
+function buildSummary() {
+  const local = S.residency === 'local';
+  const compAddr = [
+    val('company-street'), val('company-suburb'), val('company-city'),
+    val('company-province'), val('company-postal')
+  ].filter(Boolean).join(', ') || 'Cape Town, Western Cape (DigMe default)';
+
+  let h = `<div class="sec-title">Company Details</div>
+  <table class="sum-table">
+    <tr><td>Client Type</td><td>${local?'SA Resident':'Foreign National'}</td></tr>
+    <tr><td>1st Choice Name</td><td>${val('cn1')}</td></tr>
+    <tr><td>2nd Choice Name</td><td>${val('cn2')}</td></tr>
+    <tr><td>3rd Choice Name</td><td>${val('cn3')}</td></tr>
+    <tr><td>4th Choice Name</td><td>${val('cn4')}</td></tr>
+    <tr><td>Business Description</td><td>${val('bizDesc')}</td></tr>
+    <tr><td>Financial Year End</td><td>${val('yearEnd')}</td></tr>
+    <tr><td>Registered Address</td><td>${compAddr}</td></tr>
+  </table>`;
+
+  h += `<div class="sec-title" style="margin-top:22px">Shareholders</div>`;
+  for (let i = 0; i < S.shCount; i++) {
+    const docFile = document.getElementById('sh-doc-' + i)?.files[0];
+    const poaFile = document.getElementById('sh-poa-' + i)?.files[0];
+    h += `<div class="sum-sub">Shareholder ${i+1}: ${val('sh-name-'+i)}</div>
+    <table class="sum-table">
+      <tr><td>Nationality</td><td>${val('sh-nat-'+i)}</td></tr>
+      <tr><td>Date of Birth</td><td>${val('sh-dob-'+i)}</td></tr>
+      <tr><td>${local?'SA ID Number':'Passport Number'}</td><td>${val((local?'sh-id':'sh-pp')+'-'+i)}</td></tr>
+      ${!local?`<tr><td>Passport Issued</td><td>${val('sh-pp-issue-'+i)}</td></tr>
+      <tr><td>Passport Expiry</td><td>${val('sh-pp-expiry-'+i)}</td></tr>`:''}
+      <tr><td>Email</td><td>${val('sh-email-'+i)}</td></tr>
+      <tr><td>Mobile</td><td>${val('sh-phone-'+i)}</td></tr>
+      <tr><td>Address</td><td>${addrSummary('sh',i)}</td></tr>
+      <tr><td>Ownership</td><td>${val('sh-own-'+i)}%</td></tr>
+      <tr><td>Also a Director?</td><td>${S.shDirector[i]===true?'Yes':'No'}</td></tr>
+      <tr><td>ID / Passport doc</td><td>${docFile?'✓ '+docFile.name:'Not uploaded'}</td></tr>
+      <tr><td>Proof of address</td><td>${poaFile?'✓ '+poaFile.name:'Not uploaded'}</td></tr>
+    </table>`;
+  }
+
+  if (S.addlDirs === 'yes' && S.dirCount > 0) {
+    h += `<div class="sec-title" style="margin-top:22px">Additional Directors</div>`;
+    for (let i = 0; i < S.dirCount; i++) {
+      const docFile = document.getElementById('dir-doc-' + i)?.files[0];
+      const poaFile = document.getElementById('dir-poa-' + i)?.files[0];
+      h += `<div class="sum-sub">Additional Director ${i+1}: ${val('dir-name-'+i)}</div>
+      <table class="sum-table">
+        <tr><td>Nationality</td><td>${val('dir-nat-'+i)}</td></tr>
+        <tr><td>Date of Birth</td><td>${val('dir-dob-'+i)}</td></tr>
+        <tr><td>${local?'SA ID Number':'Passport Number'}</td><td>${val((local?'dir-id':'dir-pp')+'-'+i)}</td></tr>
+        ${!local?`<tr><td>Passport Issued</td><td>${val('dir-pp-issue-'+i)}</td></tr>
+        <tr><td>Passport Expiry</td><td>${val('dir-pp-expiry-'+i)}</td></tr>`:''}
+        <tr><td>Email</td><td>${val('dir-email-'+i)}</td></tr>
+        <tr><td>Mobile</td><td>${val('dir-phone-'+i)}</td></tr>
+        <tr><td>Address</td><td>${addrSummary('dir',i)}</td></tr>
+        <tr><td>ID / Passport doc</td><td>${docFile?'✓ '+docFile.name:'Not uploaded'}</td></tr>
+        <tr><td>Proof of address</td><td>${poaFile?'✓ '+poaFile.name:'Not uploaded'}</td></tr>
+      </table>`;
+    }
+  }
+
+  const svcMap = { vat:'VAT Registration', paye:'PAYE & UIF Registration', acc:'Accounting Services', tax:'Tax Compliance Services' };
+  const selSvc = Object.entries(S.services).filter(([,v])=>v).map(([k])=>svcMap[k]);
+  h += `<div class="sec-title" style="margin-top:22px">Additional Services</div>
+  <table class="sum-table">
+    <tr><td>Requested</td><td>${selSvc.length?selSvc.join(', '):'None'}</td></tr>
+  </table>`;
+
+  document.getElementById('summaryContent').innerHTML = h;
+}
+
+// ── Submit ────────────────────────────────────────────────────
+async function submitForm() {
+  const local = S.residency === 'local';
+  document.getElementById('loadingOverlay').classList.add('show');
+  document.getElementById('submitBtn').disabled = true;
+
+  try {
+    const fd = new FormData();
+    fd.append('form-name',    'company-registration');
+    fd.append('client-type',  local ? 'SA Resident' : 'Foreign National');
+    fd.append('company-name-1', val('cn1'));
+    fd.append('company-name-2', val('cn2'));
+    fd.append('company-name-3', val('cn3'));
+    fd.append('company-name-4', val('cn4'));
+    fd.append('business-desc',  val('bizDesc'));
+    fd.append('year-end',       val('yearEnd'));
+    fd.append('company-street',   val('company-street')   || 'Cape Town, Western Cape');
+    fd.append('company-suburb',   val('company-suburb'));
+    fd.append('company-city',     val('company-city')     || 'Cape Town');
+    fd.append('company-province', val('company-province') || 'Western Cape');
+    fd.append('company-postal',   val('company-postal')   || '7441');
+    fd.append('submitted-at', new Date().toLocaleString('en-ZA', { timeZone:'Africa/Johannesburg' }));
+
+    // Shareholders
+    for (let i = 0; i < S.shCount; i++) {
+      fd.append('sh-name-'     + i, val('sh-name-'  + i));
+      fd.append('sh-nat-'      + i, val('sh-nat-'   + i));
+      fd.append('sh-dob-'      + i, val('sh-dob-'   + i));
+      fd.append('sh-email-'    + i, val('sh-email-' + i));
+      fd.append('sh-phone-'    + i, val('sh-phone-' + i));
+      fd.append('sh-own-'      + i, val('sh-own-'   + i));
+      fd.append('sh-director-' + i, S.shDirector[i] === true ? 'Yes' : 'No');
+      fd.append('sh-street-'   + i, val('sh-street-'   + i));
+      fd.append('sh-suburb-'   + i, val('sh-suburb-'   + i));
+      fd.append('sh-city-'     + i, val('sh-city-'     + i));
+      fd.append('sh-province-' + i, val('sh-province-' + i));
+      fd.append('sh-postal-'   + i, val('sh-postal-'   + i));
+      fd.append('sh-country-'  + i, val('sh-country-'  + i));
+      if (local) {
+        fd.append('sh-id-' + i, val('sh-id-' + i));
+      } else {
+        fd.append('sh-pp-'        + i, val('sh-pp-'        + i));
+        fd.append('sh-pp-issue-'  + i, val('sh-pp-issue-'  + i));
+        fd.append('sh-pp-expiry-' + i, val('sh-pp-expiry-' + i));
+      }
+      const docFile = document.getElementById('sh-doc-' + i)?.files[0];
+      const poaFile = document.getElementById('sh-poa-' + i)?.files[0];
+      if (docFile) fd.append('sh-doc-' + i, docFile, docFile.name);
+      if (poaFile) fd.append('sh-poa-' + i, poaFile, poaFile.name);
+    }
+
+    // Additional directors
+    if (S.addlDirs === 'yes') {
+      for (let i = 0; i < S.dirCount; i++) {
+        fd.append('dir-name-'    + i, val('dir-name-'    + i));
+        fd.append('dir-nat-'     + i, val('dir-nat-'     + i));
+        fd.append('dir-dob-'     + i, val('dir-dob-'     + i));
+        fd.append('dir-email-'   + i, val('dir-email-'   + i));
+        fd.append('dir-phone-'   + i, val('dir-phone-'   + i));
+        fd.append('dir-street-'  + i, val('dir-street-'  + i));
+        fd.append('dir-suburb-'  + i, val('dir-suburb-'  + i));
+        fd.append('dir-city-'    + i, val('dir-city-'    + i));
+        fd.append('dir-province-'+ i, val('dir-province-'+ i));
+        fd.append('dir-postal-'  + i, val('dir-postal-'  + i));
+        fd.append('dir-country-' + i, val('dir-country-' + i));
+        if (local) {
+          fd.append('dir-id-' + i, val('dir-id-' + i));
+        } else {
+          fd.append('dir-pp-'        + i, val('dir-pp-'        + i));
+          fd.append('dir-pp-issue-'  + i, val('dir-pp-issue-'  + i));
+          fd.append('dir-pp-expiry-' + i, val('dir-pp-expiry-' + i));
+        }
+        const docFile = document.getElementById('dir-doc-' + i)?.files[0];
+        const poaFile = document.getElementById('dir-poa-' + i)?.files[0];
+        if (docFile) fd.append('dir-doc-' + i, docFile, docFile.name);
+        if (poaFile) fd.append('dir-poa-' + i, poaFile, poaFile.name);
+      }
+    }
+
+    // Services
+    const svcMap = { vat:'VAT Registration', paye:'PAYE & UIF Registration', acc:'Accounting Services', tax:'Tax Compliance Services' };
+    const selSvc = Object.entries(S.services).filter(([,v])=>v).map(([k])=>svcMap[k]);
+    fd.append('services-requested', selSvc.length ? selSvc.join(', ') : 'None');
+
+    const response = await fetch('/', { method:'POST', body:fd });
+
+    if (response.ok) {
+      document.getElementById('loadingOverlay').classList.remove('show');
+      document.getElementById('progressWrap').style.display = 'none';
+      document.getElementById('refCode').textContent =
+        'DM-' + Date.now().toString(36).toUpperCase().slice(-6);
+      showStep('success');
+    } else {
+      // Capture response details for debugging
+      let detail = '';
+      try { detail = await response.text(); } catch(e) {}
+      console.error('Netlify submission failed:', response.status, detail);
+      throw new Error('HTTP ' + response.status);
+    }
+
+  } catch (err) {
+    document.getElementById('loadingOverlay').classList.remove('show');
+    document.getElementById('submitBtn').disabled = false;
+    console.error('Submit error:', err);
+    alert('Submission failed (' + err.message + ').\n\nThis usually means the form needs to be redeployed so Netlify can detect it.\n\nPlease contact info@digme.co.za directly if the problem persists.');
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderProgress();
+  renderNumPicker('sh-count-sel', 0, 10, 'setShCount');
+});
+</script>
+
+<!-- DigMe Cookie Consent -->
+<div id="dm-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1C1C1E;border-top:1px solid #333;padding:16px 24px;font-family:'PJS',system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.25);">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <p style="margin:0;color:#EBEBF5;font-size:14px;line-height:1.6;flex:1;min-width:240px;">
+      We use cookies to understand how people use our site and to improve your experience.
+      <a href="legal/privacy-policy.html" style="color:#00897B;text-decoration:underline;white-space:nowrap;">Privacy Policy</a>
+    </p>
+    <div style="display:flex;gap:10px;flex-shrink:0;">
+      <button onclick="dmConsent('essential')" style="padding:8px 18px;border:1px solid #555;background:transparent;color:#EBEBF5;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;white-space:nowrap;">Essential only</button>
+      <button onclick="dmConsent('accepted')" style="padding:8px 18px;border:none;background:#00897B;color:#fff;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;white-space:nowrap;">Accept all cookies</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'digme_cookie_consent';
+  var stored = localStorage.getItem(KEY);
+
+  function loadAnalytics() {
+    /* Uncomment and replace G-XXXXXXXXXX with your GA4 Measurement ID once set up.
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+    s.async = true;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+    */
+  }
+
+  window.dmConsent = function(choice) {
+    localStorage.setItem(KEY, choice);
+    var banner = document.getElementById('dm-cookie-banner');
+    if (banner) banner.style.display = 'none';
+    if (choice === 'accepted') loadAnalytics();
+  };
+
+  if (!stored) {
+    window.addEventListener('DOMContentLoaded', function() {
+      var banner = document.getElementById('dm-cookie-banner');
+      if (banner) banner.style.display = 'block';
+    });
+  } else if (stored === 'accepted') {
+    loadAnalytics();
+  }
+})();
+</script>
+<!-- End Cookie Consent -->
+</body>
+</html>
