@@ -136,6 +136,33 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop
 .nav-links a.active{font-weight:600}
 .nav-cta{background:var(--teal,#1D9E75);color:#fff;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s;white-space:nowrap}
 .nav-cta:hover{background:var(--teal-hover,#178a65)}
+
+/* ── Mobile responsive ──────────────────────────────────────────────────── */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:8px;width:40px;height:40px;flex-shrink:0}
+.nav-hamburger span{display:block;height:2px;width:22px;background:#2C2C2A;border-radius:2px;transition:transform .25s,opacity .2s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:768px){
+  .nav-hamburger{display:flex}
+  .nav-cta{display:none!important}
+  nav{position:relative}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:#F5F4F0;flex-direction:column;padding:6px 0 12px;box-shadow:0 6px 24px rgba(0,0,0,.10);z-index:9999;list-style:none;margin:0}
+  .nav-links.open{display:flex}
+  .nav-links li{width:100%;margin:0;padding:0;list-style:none}
+  .nav-links a{display:block;padding:13px 24px;font-size:16px;font-weight:500;color:#2C2C2A!important;border-bottom:1px solid rgba(44,44,42,.07);text-decoration:none}
+  .nav-links a:last-child{border-bottom:none}
+  .nav-links a:hover,.nav-links a.active{color:#1D9E75!important;background:rgba(29,158,117,.05)}
+}
+@media(max-width:480px){
+  .hero-inner,.digital-inner,.advisory-inner,.xero-inner,.about-grid{grid-template-columns:1fr!important}
+  .hero-card{display:none!important}
+  .included-grid,.process-steps,.services-grid,.handle-grid,.faq-col,.two-col,.steps-grid,.benefits-grid,.cards-grid{grid-template-columns:1fr!important}
+  .footer-grid{grid-template-columns:1fr 1fr!important}
+  .container,.nav-inner,.hero-inner,.section-inner,.article-body{padding-left:18px!important;padding-right:18px!important}
+  h1{font-size:clamp(26px,8vw,40px)!important}
+  h2{font-size:clamp(20px,6vw,32px)!important}
+}
 </style>
 </head>
 <body>
@@ -150,6 +177,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop
     <li><a href="../contact.html">Contact</a></li>
   </ul>
   <a class="nav-cta" href="../contact.html">Book a call</a>
+  <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </div></nav>
 
 <div class="legal-hero">
@@ -354,5 +382,24 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop
 })();
 </script>
 <!-- End Cookie Consent -->
+<script>
+(function(){
+  var btn=document.querySelector('.nav-hamburger');
+  var menu=document.querySelector('.nav-links');
+  if(!btn||!menu)return;
+  btn.addEventListener('click',function(){
+    var isOpen=menu.classList.toggle('open');
+    btn.classList.toggle('open',isOpen);
+    btn.setAttribute('aria-expanded',String(isOpen));
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
 </body>
 </html>
