@@ -677,6 +677,9 @@ footer{background:#2C2C2A;color:rgba(245,244,240,.72);padding:56px 24px 28px}
 .faq-cta-strip h2{font-size:1.6rem;font-weight:700;margin:0 0 12px;color:var(--dm-white)}
 .faq-cta-strip p{color:rgba(255,255,255,0.62);margin:0 0 28px;font-size:1rem}
 </style>
+<!-- Google Analytics 4 -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied'});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-465RTR8VF9"></script>
 </head>
 <body>
 
@@ -1174,16 +1177,9 @@ function toggleFaq(btn) {
   var stored = localStorage.getItem(KEY);
 
   function loadAnalytics() {
-    /* Uncomment and replace G-XXXXXXXXXX with your GA4 Measurement ID once set up.
-    var s = document.createElement('script');
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
-    s.async = true;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-    */
+    gtag('consent','update',{'analytics_storage':'granted'});
+    gtag('js',new Date());
+    gtag('config','G-465RTR8VF9');
   }
 
   window.dmConsent = function(choice) {
