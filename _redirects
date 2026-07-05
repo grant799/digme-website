@@ -1,5 +1,22 @@
-# Serve article URLs as /blog/slug instead of /articles-and-blogs/slug
+# Serve article URLs as /blog/slug (canonical) — rewrite to actual file location
 /blog/*   /articles-and-blogs/:splat   200
 
 # Ensure trailing-slash variants resolve cleanly
 /blog     /blog.html                   200
+
+# Redirect old Squarespace service URL structure → new root-level pages
+/services/bookkeeping                  /bookkeeping                  301
+/services/tax-compliance               /tax-compliance               301
+/services/payroll                      /payroll                      301
+/services/xero                         /xero                         301
+/services/annual-financial-statements  /annual-financial-statements  301
+/services/cipc                         /cipc                         301
+/services/management-reports           /management-reports           301
+/services/outsourced-accounting        /outsourced-accounting        301
+/services/budgets-forecasting          /budgets-forecasting          301
+
+# Redirect old Squarespace main page URLs → new equivalents
+/about-digme                           /about                        301
+/get-in-touch                          /contact                      301
+/our-blog                              /blog                         301
+/our-blog/*                            /blog/:splat                  301
