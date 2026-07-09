@@ -20,3 +20,6 @@
 /get-in-touch                          /contact                      301
 /our-blog                              /blog                         301
 /our-blog/*                            /blog/:splat                  301
+
+# Company registration tool moved to its own site — preserve old indexed URL
+/company-registration                  https://register.digme.co.za  301
