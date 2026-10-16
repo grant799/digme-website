@@ -1,8 +1,13 @@
-# Serve article URLs as /blog/slug (canonical) — rewrite to actual file location
-/blog/*   /articles-and-blogs/:splat   200
-
-# Ensure trailing-slash variants resolve cleanly
-/blog     /blog.html                   200
+# Blog: /articles-and-blogs/ is the official address (Oct 2026).
+# Old /blog/ URLs 301 there. Five old slugs were shortened versions of the
+# filenames, so they get explicit rules BEFORE the catch-all (first match wins).
+/blog/boost-your-small-biz-finances-with-xero                       /articles-and-blogs/boost-your-small-biz-finances-with-xero-easy-affordable-efficient                  301
+/blog/financial-assurance-compilation-independent-review-audit      /articles-and-blogs/financial-assurance-compilation-independent-review-audit-business-owner-guide      301
+/blog/maximize-your-savings-with-tax-free-accounts-in-south-africa  /articles-and-blogs/maximize-your-savings-with-tax-free-accounts-in-south-africa-a-complete-guide      301
+/blog/understand-turnover-tax-simplified-system-for-micro-businesses  /articles-and-blogs/understand-turnover-tax-simplified-system-for-micro-businesses-eligible-criteria-more  301
+/blog/you-should-outsource-your-bookkeeping                         /articles-and-blogs/you-should-outsource-your-bookkeeping-when-you-have-these-7-criteria               301
+/blog                                  /articles-and-blogs/          301
+/blog/*                                /articles-and-blogs/:splat    301
 
 # Redirect old Squarespace service URL structure → new root-level pages
 /services/bookkeeping                  /bookkeeping                  301
@@ -18,8 +23,13 @@
 # Redirect old Squarespace main page URLs → new equivalents
 /about-digme                           /about                        301
 /get-in-touch                          /contact                      301
-/our-blog                              /blog                         301
-/our-blog/*                            /blog/:splat                  301
+/our-blog/boost-your-small-biz-finances-with-xero                       /articles-and-blogs/boost-your-small-biz-finances-with-xero-easy-affordable-efficient                  301
+/our-blog/financial-assurance-compilation-independent-review-audit      /articles-and-blogs/financial-assurance-compilation-independent-review-audit-business-owner-guide      301
+/our-blog/maximize-your-savings-with-tax-free-accounts-in-south-africa  /articles-and-blogs/maximize-your-savings-with-tax-free-accounts-in-south-africa-a-complete-guide      301
+/our-blog/understand-turnover-tax-simplified-system-for-micro-businesses  /articles-and-blogs/understand-turnover-tax-simplified-system-for-micro-businesses-eligible-criteria-more  301
+/our-blog/you-should-outsource-your-bookkeeping                         /articles-and-blogs/you-should-outsource-your-bookkeeping-when-you-have-these-7-criteria               301
+/our-blog                              /articles-and-blogs/          301
+/our-blog/*                            /articles-and-blogs/:splat    301
 
 # Company registration tool moved to its own site — preserve old indexed URL
 /company-registration                  https://register.digme.co.za  301

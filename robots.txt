@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.digme.co.za/sitemap.xml
+Sitemap: https://digme.co.za/sitemap.xml
