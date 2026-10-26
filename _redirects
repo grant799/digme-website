@@ -94,5 +94,9 @@
 /service-offering                      /services                     301
 /articles-and-blogs/category/*         /articles-and-blogs/          301
 /articles-and-blogs/tag/*              /articles-and-blogs/          301
-/articles-and-blogs/entrepreneurs-5-tips-for-setting-up-your-business-to-be-a-success  /articles-and-blogs/  301
-/articles-and-blogs/7-steps-to-master-budgeting-for-small-business-a-comprehensive-guide-to-prepare-better-budgets  /articles-and-blogs/  301
+
+# Retired Squarespace-era posts with no replacement: 410 Gone (cleaner than a soft-404 redirect to the index)
+/articles-and-blogs/entrepreneurs-5-tips-for-setting-up-your-business-to-be-a-success  /404.html  410
+/articles-and-blogs/7-steps-to-master-budgeting-for-small-business-a-comprehensive-guide-to-prepare-better-budgets  /404.html  410
+/articles-and-blogs/spring-clean-your-finances-3-simple-steps-for-business-success  /404.html  410
+/articles-and-blogs/last-will-and-testament-why-it-is-important-to-have-one-and-regularly-update-it  /404.html  410
