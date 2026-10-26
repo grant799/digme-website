@@ -122,7 +122,7 @@ def check_nav_cta_integrity(files):
             continue
         with open(fname, encoding="utf-8", errors="ignore") as f:
             content = f.read()
-        if "contact.html" not in content:
+        if "contact.html" not in content and 'href="/contact' not in content:
             WARNINGS.append(f"{fname}: no link to contact.html found — page may have no conversion path.")
 
 

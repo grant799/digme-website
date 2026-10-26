@@ -33,3 +33,19 @@
 
 # Company registration tool moved to its own site — preserve old indexed URL
 /company-registration                  https://register.digme.co.za  301
+
+# --- Clean-URL consolidation (Oct 2026): every page is canonical WITHOUT .html.
+# The "!" forces the redirect even though the .html file exists. Verification file excluded.
+/googled96a2999f2ec0202.html           /googled96a2999f2ec0202.html  200!
+/index.html                            /                             301!
+/articles-and-blogs/index.html         /articles-and-blogs/          301!
+/xero-guide/index.html                 /xero-guide/                  301!
+/*.html                                /:splat                       301!
+
+# Old Squarespace URLs still being requested / reported 404 in Search Console
+/home                                  /                             301
+/service-offering                      /services                     301
+/articles-and-blogs/category/*         /articles-and-blogs/          301
+/articles-and-blogs/tag/*              /articles-and-blogs/          301
+/articles-and-blogs/entrepreneurs-5-tips-for-setting-up-your-business-to-be-a-success  /articles-and-blogs/  301
+/articles-and-blogs/7-steps-to-master-budgeting-for-small-business-a-comprehensive-guide-to-prepare-better-budgets  /articles-and-blogs/  301
